@@ -45,7 +45,7 @@ button:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
   opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;box-shadow:0 3px 0 rgba(0,0,0,.25)}
 .banner b{display:block;font-size:21px}
 .banner.show{opacity:1;transform:translate(-50%,0) rotate(-1.2deg)}
-.overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(15,34,29,.62)}
+.overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(15,34,29,.82)}
 .overlay.show{display:flex}
 .sheet{width:min(460px,100%);max-height:100%;overflow:auto}
 .sheet h1,.sheet h2{margin:0;font-weight:700;line-height:1.1}
@@ -55,7 +55,7 @@ button:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
 .sheet .rules{font-size:18px;color:var(--chalk-dim);padding:0;margin:14px 0 22px;list-style:none;line-height:1.7}
 .sheet .big{font-size:24px;padding:12px 26px}
 .sheet .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
-.sheet .quiet{background:transparent;color:var(--chalk);outline:2px solid var(--chalk-dim)}
+.sheet .quiet{background:transparent;color:var(--chalk);box-shadow:inset 0 0 0 2px var(--chalk-dim)}
 .sheet .title{color:var(--yellow);font-size:30px;font-weight:700;margin:8px 0}
 @media (max-width:640px){
   .floor{top:auto;bottom:calc(14px + env(safe-area-inset-bottom));left:20px;transform:none;text-align:left}
@@ -201,7 +201,7 @@ function box(b,cam,alpha=1,labelIt=true){
   ctx.beginPath();ctx.moveTo(t4[0],t4[1]);ctx.lineTo(t3[0],t3[1]);ctx.lineTo(t2[0],t2[1]);ctx.moveTo(t3[0],t3[1]);ctx.lineTo(b3[0],b3[1]);ctx.stroke();
   if(labelIt && d*U>46){
     ctx.save();
-    ctx.transform(.866,-.5,0,1,(t3[0]+b4[0])/2,(t3[1]+b4[1])/2);
+    ctx.transform(.866,.5,0,1,(t3[0]+b4[0])/2,(t3[1]+b4[1])/2);
     ctx.fillStyle=k.ink;ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.font=`700 ${Math.max(10,H*U*.62)}px "LXGW WenKai TC","Kaiti TC",serif`;
     ctx.fillText(k.name,0,0,w*U*.8);
@@ -379,7 +379,6 @@ function draw(){
   if(g.shake>.3) ctx.translate((Math.random()-.5)*g.shake,(Math.random()-.5)*g.shake);
   ruler(cam);
   // 桌面影子
-  const sh=g.stack[0];
   ctx.fillStyle='rgba(0,0,0,.25)';ctx.beginPath();
   const sx=px(0,0),sy=py(0,0,0,cam)+6*U;
   ctx.ellipse(sx,sy,100*U,50*U,0,0,Math.PI*2);ctx.fill();
@@ -452,7 +451,6 @@ $('snd').onclick=toggleSound;
 addEventListener('resize',resize);
 
 resize(); syncBest(); hud();
-if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{});
 window.__tower={get g(){return g},get state(){return state}};
 requestAnimationFrame(frame);
 })();
